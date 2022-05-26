@@ -1,9 +1,8 @@
 package hello.core;
 
-import hello.core.Order.OderServiceImpl;
+import hello.core.Order.OrderServiceImpl;
 import hello.core.Order.OrderService;
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
@@ -19,14 +18,15 @@ public class AppConfig {  //애플리케이션의 실제 동작에 필요한 구
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
-    @Bean
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
 
     @Bean
     public OrderService orderService(){
-        return new OderServiceImpl(memberRepository(),discountPolicy());
+        return new OrderServiceImpl(memberRepository(),discountPolicy());
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
     }
 
     @Bean
