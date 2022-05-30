@@ -4,18 +4,19 @@ import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-@ComponentScan
+@Component
 public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository; /// = new MemoryMemberRepository(); AppConfig 설정으로 인한 주석 처리
+    private  MemberRepository memberRepository; /// = new MemoryMemberRepository(); AppConfig 설정으로 인한 주석 처리
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy(); //정책 변경 으로 인한 주석 처리
    // private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); //DIP(구체 클래스에 의존) , OCP(코드변경)위반!!
-    private final DiscountPolicy discountPolicy;  //인터페이스에만 의존! 하지만 메소드 호출시 값이 할당 되지 않기 때문에 NullpointException 발생!
+    private  DiscountPolicy discountPolicy;  //인터페이스에만 의존! 하지만 메소드 호출시 값이 할당 되지 않기 때문에 NullpointException 발생!
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+
+
+        public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
