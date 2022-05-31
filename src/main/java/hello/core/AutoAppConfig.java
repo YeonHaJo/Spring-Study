@@ -10,7 +10,7 @@ import org.springframework.context.annotation.FilterType;
     //    basePackageClasses = AutoAppConfig.class, //지정한 클래스의 패키지 스캔&등록
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
         //등록하는 bean 들 중에 빼야 할 bean 지정,  Configuration.class 빼는 이유 : AppConfig class 는 이미 수동으로 등록 해 있기 때문에 충돌이 일어남 방지(@
-)//@Component Annotation 이 붙은 모든 클래스를 찾아서 bean 으로 등록해줌
+)//@ComponentScan : @Component Annotation 이 붙은 모든 클래스를 찾아서 bean 으로 등록해줌
 
 public class AutoAppConfig {
 
