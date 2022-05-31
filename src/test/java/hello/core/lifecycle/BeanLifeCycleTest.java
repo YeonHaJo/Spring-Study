@@ -17,7 +17,7 @@ public class BeanLifeCycleTest {
     }
     @Configuration
     static class LifeCycleConfig{
-        @Bean(initMethod = "init", destroyMethod = "close")
+        @Bean
         public NetworkClient networkClient(){
             NetworkClient networkClient = new NetworkClient();//여기까지  테스트가 수행 될때까지 url 정보는 없다.(단일책임원칙)
             networkClient.setUrl("http://hello_spring.dev");//초기화되는 시점
