@@ -14,14 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDEmoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider;
-    //ObjectProvider 를 사용함으로서 필요시 MyLogger를 찾을 수 있는 (lookup) 기능이 주입이 됨.
+    private final MyLogger myLogger;
 
     @RequestMapping("log-demo")
     @ResponseBody  //뷰 화면 없이 문자로 바로 반환 받기 위해 사용
     public String logDemo(HttpServletRequest request)  {
         String requestURL = request.getRequestURL().toString();
-        MyLogger myLogger = myLoggerProvider.getObject();
+        System.out.println("myLogger="  + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("controller test");
