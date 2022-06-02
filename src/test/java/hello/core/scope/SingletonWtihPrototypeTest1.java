@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -44,10 +45,10 @@ public class SingletonWtihPrototypeTest1 {
     static class ClientBean{
 
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider; //지정한 빈을 대신 찾아주는 DL 서비스 제공
+        private Provider<PrototypeBean> prototypeBeanProvider; //지정한 빈을 대신 찾아주는 DL 서비스 제공
 
         public int logic(){
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject(); //getObject : 호출 시 스프링컨테이너에서 빈을 찾아 반환해준다. ->항상 새로운 프로토타입 빈이 생성 됨 
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
