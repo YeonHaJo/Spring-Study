@@ -2,6 +2,7 @@ package hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -37,18 +38,16 @@ public class SingletonWtihPrototypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
     }
     @Scope("singleton")//디폴트가 싱글톤이지만 확실한 구분을 위해 사용
     static class ClientBean{
-        private final PrototypeBean prototypeBean; //생성시점에 주입
 
         @Autowired
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider; //지정한 빈을 대신 찾아주는 DL 서비스 제공
 
         public int logic(){
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject(); //getObject : 호출 시 스프링컨테이너에서 빈을 찾아 반환해준다. ->항상 새로운 프로토타입 빈이 생성 됨 
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
@@ -56,7 +55,7 @@ public class SingletonWtihPrototypeTest1 {
         }
     }
 
- //   @Scope("prototype")
+    @Scope("prototype")
     static class PrototypeBean{
         private int count = 0;
 
